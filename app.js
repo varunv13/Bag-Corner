@@ -5,7 +5,7 @@ const path = require('path');
 const ownersRouter = require('./routes/ownersRouter.js');
 const usersRouter = require('./routes/usersRouter.js');
 const productsRouter = require('./routes/productsRouter.js');
-const db = require('./configs/mongooseConnection.js');
+const db = require('./config/mongooseConnection.js');
 
 const app = express();
 
