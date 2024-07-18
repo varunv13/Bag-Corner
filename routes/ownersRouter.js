@@ -8,25 +8,25 @@ if(process.env.NODE_ENV === "development"){ // IF THIS IS TRUE
     router.post("/create", async(req, res) => {
         let owners = await ownerModel.find();
         if(owners.length > 0){
-            return res
-            .status(501)
-            .send("You don't have the permission to create a new owner");
+            req.flag("error", "Owner exist!!");
+            res.redirect("/shop");
         }
 
         let { fullName, email, password } = req.body; // de-structing
-        let createdOwner= await ownerModel.create({
+        let createdOwner = await ownerModel.create({
             fullName,
             email,
             password
         });
         res
         .status(200)
-        .send("We can create a new owner");
+        .render("admin");
     });
 }
 
-router.get("/", (req, res) => {
-    res.send("Heey");
+router.get("/admin", (req, res) => {
+    let success = req.flash("success");
+    res.render("createproducts", { success }); // Correct view name
 });
 
 module.exports = router;
