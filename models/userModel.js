@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    fullname: {
+    fullName: {
         type: String,
         minLength: 3,
         trime: true,
@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
     email: String,
     password: String,
     contact: Number,
-    isAdmin: Boolean,
     orders: {
         type: Array,
         default: []
