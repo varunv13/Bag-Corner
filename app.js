@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
+const getColors = require('get-image-colors');
 
 require('dotenv').config(); // loads the environment variables from a '.env' file into the 'process.env' object in a node.js application
 // When you call require('dotenv').config();, 
