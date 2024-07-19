@@ -5,33 +5,43 @@ const { generateToken } = require('../utils/generateToken.js')
 module.exports.registerUser = async(req, res) => {
     try{    
         let { fullName, email, password } = req.body;
-        let previousUser = await userModel.findOne({ email });
 
-        if(previousUser){
-            req.flash("error", "User already exist");
+        if(!(email) || !(fullName) || !(password)) {
+            req.flash("error", "Fields Required");
             res.redirect("/");
         }
         else{
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(password, salt, async (err, hash) => {
-                        if(err) res.status(500).send(err.message);
-                        else{
-                                let user = await userModel.create({
-                                    fullName,
-                                    email,
-                                    password: hash,
-                                });
+            let previousUser = await userModel.findOne({ email });
 
-                                let token = generateToken(user);
-                                res.cookie("token", token);
-                                req.flash("success", "User Successfully Created!!")
-                                res.redirect("/");
+            if(previousUser){
+                req.flash("error", "User already exist");
+                res.redirect("/");
+            }
+
+            else{
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(password, salt, async (err, hash) => {
+                            if(err) res.status(500).send(err.message);
+                            else{
+                                    let user = await userModel.create({
+                                        fullName,
+                                        email,
+                                        password: hash,
+                                    });
+
+                                    let token = generateToken(user);
+                                    res.cookie("token", token);
+                                    req.flash("success", "User Successfully Created!!")
+                                    res.redirect("/");
+                                }
                             }
-                        }
-                    );
-                }
-            );
+                        );
+                    }
+                );
+            }
         }
+
+
     }
     catch(err){
         res.send(err.message);
