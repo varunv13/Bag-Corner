@@ -29,7 +29,7 @@ module.exports.createProducts = async (req, res) => {
         });
 
         req.flash("success", "Product created successfully!!");
-        res.redirect("/owners/admin");
+        return res.redirect("/owners/admin");
     } 
     catch (error) {
         console.error(error); // Log the error for debugging

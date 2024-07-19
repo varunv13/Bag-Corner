@@ -21,7 +21,7 @@ router.get("/addtocart/:productId", isLoggedIn, async(req, res) => {
     user.cart.push(req.params.productId);
     await user.save();
     req.flash("success", "Product added to cart successfully");
-    res.redirect("/shop");
+    return res.redirect("/shop");
 });
 
 router.get("/cart", isLoggedIn, async(req, res) => {
@@ -41,7 +41,7 @@ router.get("/cart", isLoggedIn, async(req, res) => {
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {
-    res.redirect("/");
+    return res.redirect("/");
 });
 
 module.exports = router;
