@@ -15,7 +15,6 @@ module.exports.registerUser = async(req, res) => {
             req.flash("error", "User already exist");
             return res.redirect("/");
         }
-
         else{
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, async (err, hash) => {
@@ -49,7 +48,7 @@ module.exports.loginUser = async(req, res) => {
 
     if(!user){ 
         req.flash("error", "Email or Password is incorrect")
-        res.redirect("/");
+        return res.redirect("/");
     }
     else{
         bcrypt.compare(password, user.password, (err, result) => {
@@ -60,7 +59,7 @@ module.exports.loginUser = async(req, res) => {
             }
             else {
                 req.flash("error", "Email or Password is incorrect")
-                res.redirect("/");
+                return res.redirect("/");
             }
         });
     }
@@ -68,5 +67,5 @@ module.exports.loginUser = async(req, res) => {
 
 module.exports.logoutUser = (req, res) => {
     res.cookie("token", "");
-    res.redirect("/");
+    return res.redirect("/");
 };
