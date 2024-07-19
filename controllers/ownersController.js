@@ -4,7 +4,7 @@ module.exports.registerOwner = async(req, res) => {
     let owners = await ownerModel.find();
     if(owners.length > 0){
         req.flag("error", "Owner exist!!");
-        res.redirect("/shop");
+        return res.redirect("/shop");
     }
 
     let { fullName, email, password } = req.body; // de-structing
@@ -14,7 +14,7 @@ module.exports.registerOwner = async(req, res) => {
         password
     });
     
-    res
+    return res
     .status(200)
     .redirect("/admin");
 };
