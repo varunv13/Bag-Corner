@@ -15,6 +15,7 @@ module.exports.registerUser = async(req, res) => {
             req.flash("error", "User already exist");
             return res.redirect("/");
         }
+
         else{
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, async (err, hash) => {
