@@ -24,6 +24,8 @@ if(process.env.NODE_ENV === "development"){ // IF THIS IS TRUE
     });
 }
 
+router.get("/create",)
+
 router.get("/admin", (req, res) => {
     let success = req.flash("success");
     res.render("createproducts", { success }); // Correct view name
