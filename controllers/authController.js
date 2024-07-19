@@ -5,11 +5,15 @@ const { generateToken } = require('../utils/generateToken.js')
 module.exports.registerUser = async(req, res) => {
     try{    
         let { fullName, email, password } = req.body;
+        if (fullName === "" || email === "" || password === "") {
+            req.flash("error", "All fields required");
+            return res.redirect("/");
+        }
+        
         let previousUser = await userModel.findOne({ email });
-
         if(previousUser){
             req.flash("error", "User already exist");
-            res.redirect("/");
+            return res.redirect("/");
         }
         else{
                 bcrypt.genSalt(10, (err, salt) => {
@@ -25,7 +29,7 @@ module.exports.registerUser = async(req, res) => {
                                 let token = generateToken(user);
                                 res.cookie("token", token);
                                 req.flash("success", "User Successfully Created!!")
-                                res.redirect("/");
+                                return res.redirect("/");
                             }
                         }
                     );
