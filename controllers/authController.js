@@ -49,7 +49,7 @@ module.exports.loginUser = async(req, res) => {
 
     if(!user){ 
         req.flash("error", "Email or Password is incorrect")
-        res.redirect("/");
+        return res.redirect("/");
     }
     else{
         bcrypt.compare(password, user.password, (err, result) => {
@@ -60,7 +60,7 @@ module.exports.loginUser = async(req, res) => {
             }
             else {
                 req.flash("error", "Email or Password is incorrect")
-                res.redirect("/");
+                return res.redirect("/");
             }
         });
     }
@@ -68,5 +68,5 @@ module.exports.loginUser = async(req, res) => {
 
 module.exports.logoutUser = (req, res) => {
     res.cookie("token", "");
-    res.redirect("/");
+    return res.redirect("/");
 };
