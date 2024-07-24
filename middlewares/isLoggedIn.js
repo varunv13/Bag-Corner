@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel.js');
 
 module.exports = async (req, res, next) => {
-    // If the user is logged in, then he first needs to login first
+    // If the user is not logged in, then he first needs to login first
     if(!req.cookies.token){
         req.flash("error", "you need to login first"); // displays the flash message in the express.js application
         // flash messages are used to display temp notifications or error messages to the user
